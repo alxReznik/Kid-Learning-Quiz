@@ -35,7 +35,7 @@ const images = {
     "עֵט": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSva6l7INPCVyAi4quxrWDDnyit3Zt1RL8Pk4khPWs3rg&s=10",
     "מַחַק": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ9rpBQlJLYtIhwL60z0FLl5A04z_pdf1x5df3GVmQUQ&s=10",
     "סַרְגֵּל": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUhrLAqlgvJYfp61vsCf-Z8RbvVCZeu-Vz_IhlZThpSQ&s=10",
-    "מַחְדֵּד": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhaqEz749XcwUNVIizp7VjJHLIY0q5z7f9nwnNtVXKZw&s=10",
+    "מְחַדֵּד": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhaqEz749XcwUNVIizp7VjJHLIY0q5z7f9nwnNtVXKZw&s=10",
     "לוּחַ": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFqlySc-2IpN5U8_D5MRbYbCl43isP-uE9Crgr9vibJOAIS639JeO0njM&s=10",
     "כִּסֵּא": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZORctqRDL61f2hg_0R_ofnAAJpSMdrw6OvKr0E-1RJA&s=10"
 };
