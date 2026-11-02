@@ -27,5 +27,16 @@ const images = {
     "סַפָּה": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc",
     "מְנוֹרָה": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c",
     "מַרְאָה": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudfq5uOMNq1a5SwHlNsGYex5PMDtac6eLBLknjJu0-A&s=10",
-    "אָרוֹן": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHb4TBdVX9OkeWH0XxSi4Iha8U3GBrutqfPOAMAOM8ZA&s=10"
+    "אָרוֹן": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHb4TBdVX9OkeWH0XxSi4Iha8U3GBrutqfPOAMAOM8ZA&s=10",
+    "תִּיק": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
+    "סֵפֶר": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c",
+    "מַחְבֶּרֶת": "https://images.unsplash.com/photo-1531346878377-a5be20888e57",
+    "עִפָּרוֹן": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVmYXHvJeRvhWLEHf0_ucM029xCmhBps9vn7sZ57SSaQ&s=10",
+    "עֵט": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSva6l7INPCVyAi4quxrWDDnyit3Zt1RL8Pk4khPWs3rg&s=10",
+    "מַחַק": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ9rpBQlJLYtIhwL60z0FLl5A04z_pdf1x5df3GVmQUQ&s=10",
+    "סַרְגֵּל": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUhrLAqlgvJYfp61vsCf-Z8RbvVCZeu-Vz_IhlZThpSQ&s=10",
+    "מַחְדֵּד": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhaqEz749XcwUNVIizp7VjJHLIY0q5z7f9nwnNtVXKZw&s=10",
+    "לוּחַ": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFqlySc-2IpN5U8_D5MRbYbCl43isP-uE9Crgr9vibJOAIS639JeO0njM&s=10",
+    "כִּסֵּא": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZORctqRDL61f2hg_0R_ofnAAJpSMdrw6OvKr0E-1RJA&s=10"
 };
+
