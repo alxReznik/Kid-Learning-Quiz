@@ -1,11 +1,13 @@
 function createWordQuizModule(config) {
     const {
         allEntries,
+        sentenceTemplates,
         maxQuestions,
         winScore,
         correctDelayMs,
         wrongDelayMs,
         quizImage,
+        wordSentence,
         optionsContainer,
         feedback,
         wordScoresContainer,
@@ -16,6 +18,7 @@ function createWordQuizModule(config) {
 
     let roundPool = [...allEntries];
     let currentCorrectWord = "";
+    let currentPromptText = "";
     let totalQuestions = 0;
     let score = 0;
     let gameEnded = false;
@@ -78,6 +81,14 @@ function createWordQuizModule(config) {
     function pickRandomEntry(pool) {
         const index = Math.floor(Math.random() * pool.length);
         return { entry: pool[index], index };
+    }
+
+    function getQuestionTypeForWord(word) {
+        if (!sentenceTemplates || !sentenceTemplates[word]) {
+            return "image";
+        }
+
+        return Math.random() < 0.5 ? "sentence" : "image";
     }
 
     function buildOptions(correctWord) {
@@ -159,7 +170,7 @@ function createWordQuizModule(config) {
             button.classList.add("wrong");
             feedback.textContent = `לֹא נָכוֹן. הַתְּשׁוּבָה הַנְּכוֹנָה הִיא: ${currentCorrectWord}`;
             wrongAnswersLog.push({
-                question: currentCorrectWord,
+                question: currentPromptText || currentCorrectWord,
                 correctAnswer: currentCorrectWord,
                 userAnswer: selectedWord
             });
@@ -199,7 +210,22 @@ function createWordQuizModule(config) {
 
         const [word, imageUrl] = entry;
         currentCorrectWord = word;
-        quizImage.src = imageUrl;
+        const questionType = getQuestionTypeForWord(word);
+
+        if (questionType === "sentence") {
+            const sentenceText = sentenceTemplates[word];
+            currentPromptText = sentenceText;
+            wordSentence.textContent = sentenceText;
+            wordSentence.hidden = false;
+            quizImage.hidden = true;
+            quizImage.removeAttribute("src");
+        } else {
+            currentPromptText = `תמונה של: ${word}`;
+            quizImage.src = imageUrl;
+            quizImage.hidden = false;
+            wordSentence.hidden = true;
+            wordSentence.textContent = "";
+        }
 
         const options = buildOptions(word);
         optionsContainer.innerHTML = "";
@@ -236,11 +262,15 @@ function createWordQuizModule(config) {
         clearAdvanceTimeout();
         roundPool = [...allEntries];
         currentCorrectWord = "";
+        currentPromptText = "";
         totalQuestions = 0;
         score = 0;
         gameEnded = false;
         wordScores = createWordScores();
         wrongAnswersLog = [];
+        quizImage.hidden = false;
+        wordSentence.hidden = true;
+        wordSentence.textContent = "";
 
         notifyStatsChange();
         renderWordScores();

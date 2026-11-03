@@ -11,6 +11,7 @@ if (allEntries.length < 4) {
 }
 
 const quizImage = document.getElementById("quiz-image");
+const wordSentence = document.getElementById("word-sentence");
 const optionsContainer = document.getElementById("options");
 const feedback = document.getElementById("feedback");
 const scoreLabel = document.getElementById("score");
@@ -46,11 +47,13 @@ function handleGameEnd(endState) {
 
 const wordQuiz = window.createWordQuizModule({
     allEntries,
+    sentenceTemplates,
     maxQuestions: MAX_QUESTIONS,
     winScore: WIN_SCORE,
     correctDelayMs: CORRECT_DELAY_MS,
     wrongDelayMs: WRONG_DELAY_MS,
     quizImage,
+    wordSentence,
     optionsContainer,
     feedback,
     wordScoresContainer,
