@@ -37,7 +37,22 @@ const images = {
     "סַרְגֵּל": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUhrLAqlgvJYfp61vsCf-Z8RbvVCZeu-Vz_IhlZThpSQ&s=10",
     "מְחַדֵּד": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhaqEz749XcwUNVIizp7VjJHLIY0q5z7f9nwnNtVXKZw&s=10",
     "לוּחַ": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFqlySc-2IpN5U8_D5MRbYbCl43isP-uE9Crgr9vibJOAIS639JeO0njM&s=10",
-    "כִּסֵּא": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZORctqRDL61f2hg_0R_ofnAAJpSMdrw6OvKr0E-1RJA&s=10"
+    "כִּסֵּא": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZORctqRDL61f2hg_0R_ofnAAJpSMdrw6OvKr0E-1RJA&s=10",
+    "נַעֲלַיִם": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdQ5SleHlB9suQUw36p34TwgIosBxF36XL5bH_c5d0rA&s=10",
+    "גַּרְבַּיִם": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8XtqonwlkkxfLSZhk3AA-9tA5ydflvRg7n6A0IXJxpQ&s=10",
+    "מְעִיל": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWrwHdZbCqePf8iTusEiDt7zMQctLFalSV3azFkd_JkQ&s=10",
+    "צָעִיף": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSm-eNH_3d1gQTwC4MMU-7e0DALxIV6YmQHX05yVL7gw&s=10",
+    "כְּפָפוֹת": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH-98Co80hj4AbOmoIb_DGLgSSB3cxDIqtN_V1UUpPfA&s=10",
+    "כּוֹבַע צֶמֶר": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF05MlEc4q_ahLqdkjpLBwWlpJvOIttBCo4fzTz9yXjQ&s=10",
+    "סְוֶדֶר": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNevwzpO1FN7AmGy_H-ihWL_olE1fbrhUjrexX3gYAdQ&s=10",
+    "מַגָּפַיִם": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQTLX9_L0KlHBMN72EZy2iah1wHCFZ6SEGdLKOOJHw1w&s",
+    "חוּלְצַת חֹרֶף": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9zGeCTkMjCVdharq4IIXIUYHcQc4AjKykO-PYtUGJ2w&s",
+    "חֹרֶף": "https://images.unsplash.com/photo-1517299321609-52687d1bc55a",
+    "אָבִיב": "https://images.unsplash.com/photo-1490750967868-88aa4486c946",
+    "קַיִץ": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "סְתָיו": "https://images.unsplash.com/photo-1507371341162-763b5e419408"
+
+
 };
 
 const sentenceTemplates = {
@@ -78,6 +93,19 @@ const sentenceTemplates = {
     "מַחַק": "אֲנִי מוֹחֶקֶת עִם ___ .",
     "סַרְגֵּל": "אֲנִי מוֹדֶדֶת עִם ___ .",
     "מְחַדֵּד": "אֲנִי מְחַדֶּדֶת עִפָּרוֹן בַּ___ .",
-    "לוּחַ": "הַמּוֹרָה כּוֹתֶבֶת עַל הַ___ ."
+    "לוּחַ": "הַמּוֹרָה כּוֹתֶבֶת עַל הַ___ .",
+    "נַעֲלַיִם": "אֲנִי נוֹעֶלֶת ___ כְּשֶׁקָּר.",
+    "גַּרְבַּיִם": "אֲנִי לוֹבֶשֶׁת ___ בַּחוֹרֶף.",
+    "מְעִיל": "אֲנִי לוֹבֶשֶׁת ___ כְּשֶׁיֵּשׁ גֶּשֶׁם.",
+    "צָעִיף": "אֲנִי שָׂמָה ___ עַל הַצַּוָּאר.",
+    "כְּפָפוֹת": "בַּחוֹרֶף הַיָּדַיִם בְּתוֹךְ ___ .",
+    "כּוֹבַע צֶמֶר": "עַל הָרֹאשׁ אֲנִי שָׂמָה ___ .",
+    "סְוֶדֶר": "אֲנִי לוֹבֶשֶׁת ___ חַם.",
+    "מַגָּפַיִם": "בַּשְּׁלוּלִיוֹת אֲנִי הוֹלֶכֶת עִם ___ .",
+    "חוּלְצַת חֹרֶף": "בַּיָּמִים הַקָּרִים אֲנִי לוֹבֶשֶׁת ___ .",
+    "חֹרֶף": "בַּ___ קָר וְיוֹרֵד גֶּשֶׁם.",
+    "אָבִיב": "בַּ___ הַפְּרָחִים פּוֹרְחִים.",
+    "קַיִץ": "בַּ___ חַם וְהוֹלְכִים לַיָּם.",
+    "סְתָיו": "בַּ___ הָעָלִים מַחְלִיפִים צֶבַע."
 };
 

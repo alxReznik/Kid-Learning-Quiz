@@ -66,24 +66,36 @@ function createMathQuizModule(config) {
     }
 
     function buildMathQuestion() {
-        const operators = ["*", "/"];
+        const operators = ["*", "/", "-"];
         const operator = operators[Math.floor(Math.random() * operators.length)];
-        const factor = 2;
+        const factor = Math.random() < 0.5 ? 2 : 3;
 
         if (operator === "*") {
-            const number = Math.floor(Math.random() * 10) + 1;
+            const maxNumber = factor === 3 ? 6 : 10;
+            const number = Math.floor(Math.random() * maxNumber) + 1;
             return {
                 text: `${number} × ${factor} = ?`,
                 answer: number * factor
             };
         }
 
-        const quotient = Math.floor(Math.random() * 10) + 1;
+        const maxQuotient = factor === 3 ? 6 : 10;
+        const quotient = Math.floor(Math.random() * maxQuotient) + 1;
         const dividend = quotient * factor;
 
+        if (operator === "/") {
+            return {
+                text: `${dividend} ÷ ${factor} = ?`,
+                answer: quotient
+            };
+        }
+
+        const subtrahend = Math.floor(Math.random() * 9) + 1;
+        const minuend = Math.floor(Math.random() * 11) + 10;
+
         return {
-            text: `${dividend} ÷ ${factor} = ?`,
-            answer: quotient
+            text: `${minuend} - ${subtrahend} = ?`,
+            answer: minuend - subtrahend
         };
     }
 
