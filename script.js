@@ -113,6 +113,17 @@ function setMode(mode) {
 }
 
 function restartCurrentMode() {
+    const activeQuiz = currentMode === "math" ? mathQuiz : wordQuiz;
+    const { totalQuestions } = activeQuiz.getStats();
+    const shouldConfirmRestart = totalQuestions > 0;
+
+    if (shouldConfirmRestart) {
+        const confirmed = window.confirm("לְהַתְחִיל מֵחָדָשׁ? כָּל הַהִתְקַדְּמוּת הַנּוֹכְחִית תִּמָּחֵק.");
+        if (!confirmed) {
+            return;
+        }
+    }
+
     if (currentMode === "math") {
         mathQuiz.restart();
         return;
