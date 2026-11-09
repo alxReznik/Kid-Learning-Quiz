@@ -109,3 +109,24 @@ const sentenceTemplates = {
     "סְתָיו": "בַּ___ הָעָלִים מַחְלִיפִים צֶבַע."
 };
 
+const winImageUrl = {
+    "Skye": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-NgeB6qEHviFGsw9D0nDYlnitZnwCFbzzS5qKu9V5iQ&s=10",
+    "Chase": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUcWBDTDfK3pMGKHYnx1xDaVG86Jiu_8lNEjtwhARhLw&s=10",
+    "Marshall": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzKCjE2109fXEnr7344llu6Vra8n5eGvwTLUp9EJqmcA&s=10",
+    "Rubble": "https://cdn.prod.website-files.com/63f8f02e35d18441043c9041/6480cfba9a811083fadca42d_rubble-poster.jpg",
+    "Rocky": "https://cdn.prod.website-files.com/63f8f02e35d18441043c9041/6480cfb02b17fd95d67ff2a4_rocky-poster.jpg",
+    "Zuma": "https://cdn.prod.website-files.com/63f8f02e35d18441043c9041/6480cfa86a3b230f56934bd4_zuma-poster.jpg",
+    "Everest": "https://cdn.prod.website-files.com/63f8f02e35d18441043c9041/6480cf9837f224d22f0c3e9f_everest-poster.jpg",
+    "Tracker": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJaXmmeJiAN_fRdrcK3NkKizAVXCZKikLdQkRyUaKf3A&s=10",
+    "Liberty": "https://cdn.prod.website-files.com/63f8f02e35d18441043c9041/6480cf8f73fb15e8d2f8bb77_liberty-poster.jpg",
+    "Rex": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFmlSSZv2HfGiVoztisvNlQ2AtxIWIwU8TE9UUsFhDpA&s=10",
+    "Wild": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTUKajT5SoWRenXFzf68LBzAGeIP0GEZWJaCsOHvkBKw&s=10",
+    "Tuck": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnkDVKjvfjObO7LXezG3lnoMWSXcZmA1DfHHM9NCryJw&s=10",
+    "Ella": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5E-AcuAy8sjcyhCThUmpvebv2rLvQJHnryWjrAoY2PA&s=10",
+    "Ryder": "https://cdn.prod.website-files.com/63f8f02e35d18441043c9041/6480cfa1f49d62cb43b63cd6_ryder-poster.jpg"
+};
+
+const loseImageUrl = {
+    "Handinger": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQynkDwLQvKJvz3ctdrmH6FPcJv8YtHv55KctrTvBlQ5w&s=10",
+};
+

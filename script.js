@@ -1,4 +1,4 @@
-const MAX_QUESTIONS = 100;
+const MAX_QUESTIONS = 10;
 const WIN_SCORE = MAX_QUESTIONS - 5;
 const CORRECT_DELAY_MS = 500;
 const WRONG_DELAY_MS = 3000;
@@ -26,8 +26,57 @@ const mathOptionsContainer = document.getElementById("math-options");
 const wrongLogSection = document.getElementById("wrong-log-section");
 const wrongLogContainer = document.getElementById("wrong-log-list");
 const wrongLogBtn = document.getElementById("wrong-log-btn");
+const resultOverlay = document.getElementById("result-overlay");
+const resultCloseBtn = document.getElementById("result-close-btn");
+const resultMessage = document.getElementById("result-message");
+const resultImage = document.getElementById("result-image");
 
 let currentMode = "words";
+
+function hideResultImage() {
+    if (!resultImage || !resultOverlay || !resultMessage) {
+        return;
+    }
+
+    resultOverlay.hidden = true;
+    resultImage.removeAttribute("src");
+    resultMessage.textContent = "";
+}
+
+function pickRandomImageUrl(imageMap) {
+    if (!imageMap) {
+        return "";
+    }
+
+    const urls = Object.values(imageMap).filter((url) => typeof url === "string" && url.length > 0);
+    if (urls.length === 0) {
+        return "";
+    }
+
+    const index = Math.floor(Math.random() * urls.length);
+    return urls[index];
+}
+
+function showResultImage(didWin) {
+    if (!resultImage || !resultOverlay || !resultMessage) {
+        return;
+    }
+
+    const selectedImageUrl = didWin
+        ? pickRandomImageUrl(winImageUrl)
+        : pickRandomImageUrl(loseImageUrl);
+
+    if (!selectedImageUrl) {
+        hideResultImage();
+        return;
+    }
+
+    resultMessage.textContent = didWin
+        ? "כָּל הַכָּבוֹד, נִצַּחַתְּ !!!"
+        : "לֹא נוֹרָא, פַּעַם הַבָּאָה תַּצְלִיחִי !";
+    resultImage.src = selectedImageUrl;
+    resultOverlay.hidden = false;
+}
 
 function hideWrongLogUI() {
     wrongLogBtn.hidden = true;
@@ -37,12 +86,14 @@ function hideWrongLogUI() {
 function handleGameEnd(endState) {
     if (!endState) {
         hideWrongLogUI();
+        hideResultImage();
         return;
     }
 
     const shouldShowButton = !endState.didWin && endState.wrongCount > 0;
     wrongLogBtn.hidden = !shouldShowButton;
     wrongLogSection.hidden = true;
+    showResultImage(endState.didWin);
 }
 
 const wordQuiz = window.createWordQuizModule({
@@ -91,6 +142,7 @@ function setMode(mode) {
     currentMode = mode;
     feedback.textContent = "";
     hideWrongLogUI();
+    hideResultImage();
 
     if (mode === "math") {
         appTitle.textContent = "תַּרְגּוּל חֶשְׁבּוֹן";
@@ -133,6 +185,7 @@ function restartCurrentMode() {
 }
 
 restartBtn.addEventListener("click", restartCurrentMode);
+resultCloseBtn.addEventListener("click", hideResultImage);
 wrongLogBtn.addEventListener("click", () => {
     wrongLogSection.hidden = false;
 });
