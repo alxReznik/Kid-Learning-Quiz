@@ -12,6 +12,9 @@ function createMathQuizModule(config) {
         onGameEnd
     } = config;
 
+    let currentMaxQuestions = maxQuestions;
+    let currentWinScore = winScore;
+
     let totalQuestions = 0;
     let score = 0;
     let gameEnded = false;
@@ -59,43 +62,56 @@ function createMathQuizModule(config) {
     function notifyStatsChange() {
         onStatsChange({
             score,
-            remaining: maxQuestions - totalQuestions,
+            remaining: currentMaxQuestions - totalQuestions,
             totalQuestions,
-            maxQuestions
+            maxQuestions: currentMaxQuestions
         });
     }
 
     function buildMathQuestion() {
-        const operators = ["*", "/", "-"];
-        const operator = operators[Math.floor(Math.random() * operators.length)];
-        const factor = Math.random() < 0.5 ? 2 : 3;
+        const questionTypes = ["divide-missing", "multiply-missing", "subtract-missing", "add-missing"];
+        const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
 
-        if (operator === "*") {
-            const maxNumber = factor === 3 ? 6 : 10;
-            const number = Math.floor(Math.random() * maxNumber) + 1;
+        if (questionType === "divide-missing") {
+            const answer = Math.floor(Math.random() * 9) + 2;
+            const quotient = Math.floor(Math.random() * 10) + 1;
+            const dividend = answer * quotient;
+
             return {
-                text: `${number} × ${factor} = ?`,
-                answer: number * factor
+                text: `${dividend} ÷ ? = ${quotient}`,
+                answer
             };
         }
 
-        const maxQuotient = factor === 3 ? 6 : 10;
-        const quotient = Math.floor(Math.random() * maxQuotient) + 1;
-        const dividend = quotient * factor;
+        if (questionType === "multiply-missing") {
+            const factor = Math.random() < 0.5 ? 2 : 3;
+            const answer = Math.floor(Math.random() * 10) + 1;
+            const product = answer * factor;
 
-        if (operator === "/") {
             return {
-                text: `${dividend} ÷ ${factor} = ?`,
-                answer: quotient
+                text: `? × ${factor} = ${product}`,
+                answer
             };
         }
 
-        const subtrahend = Math.floor(Math.random() * 9) + 1;
-        const minuend = Math.floor(Math.random() * 11) + 10;
+        if (questionType === "subtract-missing") {
+            const minuend = Math.floor(Math.random() * 11) + 10;
+            const result = Math.floor(Math.random() * 9) + 1;
+            const answer = minuend - result;
+
+            return {
+                text: `${minuend} - ? = ${result}`,
+                answer
+            };
+        }
+
+        const answer = Math.floor(Math.random() * 10) + 1;
+        const addend = Math.floor(Math.random() * 10) + 1;
+        const sum = answer + addend;
 
         return {
-            text: `${minuend} - ${subtrahend} = ?`,
-            answer: minuend - subtrahend
+            text: `? + ${addend} = ${sum}`,
+            answer
         };
     }
 
@@ -149,17 +165,17 @@ function createMathQuizModule(config) {
     function endGame() {
         gameEnded = true;
         clearAdvanceTimeout();
-        if (score >= winScore) {
-            feedback.textContent = `נִיצַּחְתָּ בְּחֶשְׁבּוֹן! עָנִיתָ נָכוֹן עַל ${score} מִתּוֹךְ ${maxQuestions}.`;
+        if (score >= currentWinScore) {
+            feedback.textContent = `נִיצַּחְתָּ בְּחֶשְׁבּוֹן! עָנִיתָ נָכוֹן עַל ${score} מִתּוֹךְ ${currentMaxQuestions}.`;
         } else {
-            feedback.textContent = `סִיּוּם חֶשְׁבּוֹן: ${score} נְכוֹנוֹת מִתּוֹךְ ${maxQuestions}.`;
+            feedback.textContent = `סִיּוּם חֶשְׁבּוֹן: ${score} נְכוֹנוֹת מִתּוֹךְ ${currentMaxQuestions}.`;
         }
 
         if (onGameEnd) {
             onGameEnd({
-                didWin: score >= winScore,
+                didWin: score >= currentWinScore,
                 score,
-                maxQuestions,
+                maxQuestions: currentMaxQuestions,
                 wrongCount: wrongAnswersLog.length
             });
         }
@@ -216,7 +232,7 @@ function createMathQuizModule(config) {
         notifyStatsChange();
         renderWrongAnswersLog();
 
-        if (totalQuestions >= maxQuestions) {
+        if (totalQuestions >= currentMaxQuestions) {
             endGame();
             return;
         }
@@ -265,17 +281,36 @@ function createMathQuizModule(config) {
     function getStats() {
         return {
             score,
-            remaining: maxQuestions - totalQuestions,
+            remaining: currentMaxQuestions - totalQuestions,
             totalQuestions,
-            maxQuestions
+            maxQuestions: currentMaxQuestions
         };
+    }
+
+    function configure(configUpdate) {
+        if (!configUpdate) {
+            return;
+        }
+
+        const { maxQuestions: nextMaxQuestions, winScore: nextWinScore } = configUpdate;
+
+        if (typeof nextMaxQuestions === "number" && Number.isFinite(nextMaxQuestions) && nextMaxQuestions >= 1) {
+            currentMaxQuestions = Math.floor(nextMaxQuestions);
+        }
+
+        if (typeof nextWinScore === "number" && Number.isFinite(nextWinScore) && nextWinScore >= 0) {
+            currentWinScore = nextWinScore;
+        }
+
+        notifyStatsChange();
     }
 
     return {
         activate,
         deactivate,
         restart,
-        getStats
+        getStats,
+        configure
     };
 }
 

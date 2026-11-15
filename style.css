@@ -67,6 +67,27 @@ h1 {
     display: inline-block;
 }
 
+.question-count-control {
+    margin: 10px auto 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+#question-count-input {
+    width: 96px;
+    border: 2px solid #bfdbfe;
+    border-radius: 10px;
+    padding: 6px 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    color: #0f172a;
+    background: #ffffff;
+}
+
 #words-section,
 #math-section {
     min-height: 400px;

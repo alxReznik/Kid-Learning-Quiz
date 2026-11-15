@@ -1,9 +1,9 @@
 const MAX_QUESTIONS = 100;
-const WIN_SCORE = MAX_QUESTIONS - 5;
+const WIN_SCORE = MAX_QUESTIONS / 100 * 5;
 const CORRECT_DELAY_MS = 500;
 const WRONG_DELAY_MS = 3000;
 const MAX_MATH_QUESTIONS = 50;
-const MATH_WIN_SCORE = MAX_MATH_QUESTIONS - 5;
+const MATH_WIN_SCORE = MAX_MATH_QUESTIONS / 100 * 5;
 
 const allEntries = Object.entries(images);
 if (allEntries.length < 4) {
@@ -30,8 +30,60 @@ const resultOverlay = document.getElementById("result-overlay");
 const resultCloseBtn = document.getElementById("result-close-btn");
 const resultMessage = document.getElementById("result-message");
 const resultImage = document.getElementById("result-image");
+const questionCountInput = document.getElementById("question-count-input");
 
 let currentMode = "words";
+let wordQuestionCount = MAX_QUESTIONS;
+let mathQuestionCount = MAX_MATH_QUESTIONS;
+const WORD_WIN_RATIO = WIN_SCORE / MAX_QUESTIONS;
+const MATH_WIN_RATIO = MATH_WIN_SCORE / MAX_MATH_QUESTIONS;
+
+function toValidQuestionCount(value, fallback) {
+    const parsed = Number.parseInt(String(value), 10);
+    if (!Number.isFinite(parsed) || parsed < 1) {
+        return fallback;
+    }
+
+    return parsed;
+}
+
+function getCurrentModeQuestionCount() {
+    return currentMode === "math" ? mathQuestionCount : wordQuestionCount;
+}
+
+function getWinScoreForMode(mode, questionCount) {
+    const ratio = mode === "math" ? MATH_WIN_RATIO : WORD_WIN_RATIO;
+    return questionCount * ratio;
+}
+
+function syncQuestionCountInput() {
+    if (!questionCountInput) {
+        return;
+    }
+
+    questionCountInput.value = String(getCurrentModeQuestionCount());
+}
+
+function applyQuestionCountForCurrentMode(nextQuestionCount) {
+    const nextWinScore = getWinScoreForMode(currentMode, nextQuestionCount);
+
+    if (currentMode === "math") {
+        mathQuestionCount = nextQuestionCount;
+        mathQuiz.configure({
+            maxQuestions: nextQuestionCount,
+            winScore: nextWinScore
+        });
+        mathQuiz.restart();
+        return;
+    }
+
+    wordQuestionCount = nextQuestionCount;
+    wordQuiz.configure({
+        maxQuestions: nextQuestionCount,
+        winScore: nextWinScore
+    });
+    wordQuiz.restart();
+}
 
 function hideResultImage() {
     if (!resultImage || !resultOverlay || !resultMessage) {
@@ -143,6 +195,7 @@ function setMode(mode) {
     feedback.textContent = "";
     hideWrongLogUI();
     hideResultImage();
+    syncQuestionCountInput();
 
     if (mode === "math") {
         appTitle.textContent = "תַּרְגּוּל חֶשְׁבּוֹן";
@@ -186,6 +239,12 @@ function restartCurrentMode() {
 
 restartBtn.addEventListener("click", restartCurrentMode);
 resultCloseBtn.addEventListener("click", hideResultImage);
+questionCountInput.addEventListener("change", () => {
+    const fallback = getCurrentModeQuestionCount();
+    const nextQuestionCount = toValidQuestionCount(questionCountInput.value, fallback);
+    questionCountInput.value = String(nextQuestionCount);
+    applyQuestionCountForCurrentMode(nextQuestionCount);
+});
 wrongLogBtn.addEventListener("click", () => {
     wrongLogSection.hidden = false;
 });

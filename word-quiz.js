@@ -16,6 +16,9 @@ function createWordQuizModule(config) {
         onGameEnd
     } = config;
 
+    let currentMaxQuestions = maxQuestions;
+    let currentWinScore = winScore;
+
     let roundPool = [...allEntries];
     let currentCorrectWord = "";
     let currentPromptText = "";
@@ -125,9 +128,9 @@ function createWordQuizModule(config) {
     function notifyStatsChange() {
         onStatsChange({
             score,
-            remaining: maxQuestions - totalQuestions,
+            remaining: currentMaxQuestions - totalQuestions,
             totalQuestions,
-            maxQuestions
+            maxQuestions: currentMaxQuestions
         });
     }
 
@@ -135,17 +138,17 @@ function createWordQuizModule(config) {
         gameEnded = true;
         clearAdvanceTimeout();
 
-        if (score >= winScore) {
-            feedback.textContent = `נִיצַּחְתָּ! עָנִיתָ נָכוֹן עַל ${score} מִתּוֹךְ ${maxQuestions}.`;
+        if (score >= currentWinScore) {
+            feedback.textContent = `נִיצַּחְתָּ! עָנִיתָ נָכוֹן עַל ${score} מִתּוֹךְ ${currentMaxQuestions}.`;
         } else {
-            feedback.textContent = `הִפְסַדְתָּ. עָנִיתָ נָכוֹן עַל ${score} מִתּוֹךְ ${maxQuestions}.`;
+            feedback.textContent = `הִפְסַדְתָּ. עָנִיתָ נָכוֹן עַל ${score} מִתּוֹךְ ${currentMaxQuestions}.`;
         }
 
         if (onGameEnd) {
             onGameEnd({
-                didWin: score >= winScore,
+                didWin: score >= currentWinScore,
                 score,
-                maxQuestions,
+                maxQuestions: currentMaxQuestions,
                 wrongCount: wrongAnswersLog.length
             });
         }
@@ -188,7 +191,7 @@ function createWordQuizModule(config) {
         renderWrongAnswersLog();
         lockOptions();
 
-        if (totalQuestions >= maxQuestions) {
+        if (totalQuestions >= currentMaxQuestions) {
             endGame();
             return;
         }
@@ -288,10 +291,28 @@ function createWordQuizModule(config) {
     function getStats() {
         return {
             score,
-            remaining: maxQuestions - totalQuestions,
+            remaining: currentMaxQuestions - totalQuestions,
             totalQuestions,
-            maxQuestions
+            maxQuestions: currentMaxQuestions
         };
+    }
+
+    function configure(configUpdate) {
+        if (!configUpdate) {
+            return;
+        }
+
+        const { maxQuestions: nextMaxQuestions, winScore: nextWinScore } = configUpdate;
+
+        if (typeof nextMaxQuestions === "number" && Number.isFinite(nextMaxQuestions) && nextMaxQuestions >= 1) {
+            currentMaxQuestions = Math.floor(nextMaxQuestions);
+        }
+
+        if (typeof nextWinScore === "number" && Number.isFinite(nextWinScore) && nextWinScore >= 0) {
+            currentWinScore = nextWinScore;
+        }
+
+        notifyStatsChange();
     }
 
     renderWordScores();
@@ -301,7 +322,8 @@ function createWordQuizModule(config) {
         activate,
         deactivate,
         restart,
-        getStats
+        getStats,
+        configure
     };
 }
 
