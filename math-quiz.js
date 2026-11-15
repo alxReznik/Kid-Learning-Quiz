@@ -69,12 +69,21 @@ function createMathQuizModule(config) {
     }
 
     function buildMathQuestion() {
-        const questionTypes = ["divide-missing", "multiply-missing", "subtract-missing", "add-missing"];
+        const questionTypes = [
+            "divide-missing",
+            "multiply-missing",
+            "subtract-missing",
+            "add-missing",
+            "multiply-direct",
+            "divide-direct"
+        ];
         const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+        const allowedFactor = Math.random() < 0.5 ? 2 : 3;
 
         if (questionType === "divide-missing") {
-            const answer = Math.floor(Math.random() * 9) + 2;
-            const quotient = Math.floor(Math.random() * 10) + 1;
+            const answer = allowedFactor;
+            const maxQuotient = Math.floor(20 / answer);
+            const quotient = Math.floor(Math.random() * maxQuotient) + 1;
             const dividend = answer * quotient;
 
             return {
@@ -84,13 +93,37 @@ function createMathQuizModule(config) {
         }
 
         if (questionType === "multiply-missing") {
-            const factor = Math.random() < 0.5 ? 2 : 3;
-            const answer = Math.floor(Math.random() * 10) + 1;
+            const factor = allowedFactor;
+            const maxAnswer = Math.floor(20 / factor);
+            const answer = Math.floor(Math.random() * maxAnswer) + 1;
             const product = answer * factor;
 
             return {
                 text: `? × ${factor} = ${product}`,
                 answer
+            };
+        }
+
+        if (questionType === "multiply-direct") {
+            const factor = allowedFactor;
+            const maxNumber = Math.floor(20 / factor);
+            const number = Math.floor(Math.random() * maxNumber) + 1;
+
+            return {
+                text: `${number} × ${factor} = ?`,
+                answer: number * factor
+            };
+        }
+
+        if (questionType === "divide-direct") {
+            const divisor = allowedFactor;
+            const maxQuotient = Math.floor(20 / divisor);
+            const quotient = Math.floor(Math.random() * maxQuotient) + 1;
+            const dividend = divisor * quotient;
+
+            return {
+                text: `${dividend} ÷ ${divisor} = ?`,
+                answer: quotient
             };
         }
 
